@@ -1,0 +1,96 @@
+Use ex2;
+
+
+INSERT INTO users (username, name, email, ts) VALUES ('user1', 'John', 'john@email.com', '2023-01-01T12:00:00Z');
+INSERT INTO users (username, name, email, ts) VALUES ('user2', 'Jane', 'jane@email.com', '2023-01-01T12:05:00Z');
+INSERT INTO users (username, name, email, ts) VALUES ('user3', 'Bob', 'bob@email.com', '2023-01-01T12:10:00Z');
+INSERT INTO users (username, name, email, ts) VALUES ('user4', 'Alice', 'alice@email.com', '2023-01-01T12:15:00Z');
+INSERT INTO users (username, name, email, ts) VALUES ('user5', 'Charlie', 'charlie@email.com', '2023-01-01T12:20:00Z');
+INSERT INTO users (username, name, email, ts) VALUES ('user6', 'Eva', 'eva@email.com', '2023-01-01T12:25:00Z');
+INSERT INTO users (username, name, email, ts) VALUES ('user7', 'Frank', 'frank@email.com', '2023-01-01T12:30:00Z');
+INSERT INTO users (username, name, email, ts) VALUES ('user8', 'Grace', 'grace@email.com', '2023-01-01T12:35:00Z');
+INSERT INTO users (username, name, email, ts) VALUES ('user9', 'Henry', 'henry@email.com', '2023-01-01T12:40:00Z');
+INSERT INTO users (username, name, email, ts) VALUES ('user10', 'Isabel', 'isabel@email.com', '2023-01-01T12:45:00Z');
+
+
+
+INSERT INTO videos (id, author, name, description, tags, ts) VALUES (1, 'John', 'Intro to Programming', 'Learn the basics of programming', {'programming', 'education'}, '2023-01-01T13:00:00Z');
+INSERT INTO videos (id, author, name, description, tags, ts) VALUES (2, 'Jane', 'Cooking 101', 'Beginner-friendly cooking tips', {'cooking', 'food'}, '2023-01-01T13:05:00Z');
+INSERT INTO videos (id, author, name, description, tags, ts) VALUES (3, 'Bob', 'Fitness at Home', 'Stay fit with home workouts', {'fitness', 'health'}, '2023-01-01T13:10:00Z');
+INSERT INTO videos (id, author, name, description, tags, ts) VALUES (4, 'Alice', 'Travel Vlog', 'Explore amazing destinations', {'travel', 'adventure'}, '2023-01-01T13:15:00Z');
+INSERT INTO videos (id, author, name, description, tags, ts) VALUES (5, 'Charlie', 'Guitar Tutorial', 'Learn to play the guitar', {'music', 'tutorial'}, '2023-01-01T13:20:00Z');
+INSERT INTO videos (id, author, name, description, tags, ts) VALUES (6, 'Eva', 'DIY Crafts', 'Create fun crafts at home', {'diy', 'crafts'}, '2023-01-01T13:25:00Z');
+INSERT INTO videos (id, author, name, description, tags, ts) VALUES (7, 'Frank', 'Tech Reviews', 'Latest in technology', {'tech', 'reviews'}, '2023-01-01T13:30:00Z');
+INSERT INTO videos (id, author, name, description, tags, ts) VALUES (8, 'Grace', 'Yoga for Beginners', 'Relax with beginner yoga poses', {'yoga', 'wellness'}, '2023-01-01T13:35:00Z');
+INSERT INTO videos (id, author, name, description, tags, ts) VALUES (9, 'Henry', 'Photography Tips', 'Capture stunning photos', {'photography', 'tips'}, '2023-01-01T13:40:00Z');
+INSERT INTO videos (id, author, name, description, tags, ts) VALUES (10, 'Isabel', 'Book Recommendations', 'Discover great books to read', {'books', 'recommendations'}, '2023-01-01T13:45:00Z');
+INSERT INTO videos (id, author, name, description, tags, ts) VALUES (11, 'Eva', 'More DIY Crafts', 'More fun crafts at home', {'diy', 'crafts', 'Aveiro'}, '2017-08-03T13:45:00Z');
+
+
+
+INSERT INTO comments_user (id, id_video, author, comment, ts) VALUES (1, 1, 'User1', 'Great video!', '2023-01-01T14:00:00Z');
+INSERT INTO comments_user (id, id_video, author, comment, ts) VALUES (2, 2, 'User2', 'I love these recipes!', '2023-01-01T14:05:00Z');
+INSERT INTO comments_user (id, id_video, author, comment, ts) VALUES (3, 3, 'User3', 'Excellent workout routine!', '2023-01-01T14:10:00Z');
+INSERT INTO comments_user (id, id_video, author, comment, ts) VALUES (4, 4, 'User4', 'Amazing travel vlog!', '2023-01-01T14:15:00Z');
+INSERT INTO comments_user (id, id_video, author, comment, ts) VALUES (5, 5, 'User5', 'Helpful guitar tutorial!', '2023-01-01T14:20:00Z');
+INSERT INTO comments_user (id, id_video, author, comment, ts) VALUES (6, 6, 'User6', 'Love these DIY ideas!', '2023-01-01T14:25:00Z');
+INSERT INTO comments_user (id, id_video, author, comment, ts) VALUES (7, 7, 'User7', 'Informative tech review!', '2023-01-01T14:30:00Z');
+INSERT INTO comments_user (id, id_video, author, comment, ts) VALUES (8, 8, 'User8', 'Relaxing yoga session!', '2023-01-01T14:35:00Z');
+INSERT INTO comments_user (id, id_video, author, comment, ts) VALUES (9, 9, 'User9', 'Thanks for the photography tips!', '2023-01-01T14:40:00Z');
+INSERT INTO comments_user (id, id_video, author, comment, ts) VALUES (10, 10, 'User10', 'Great book recommendations!', '2023-01-01T14:45:00Z');
+INSERT INTO comments_user (id, id_video, author, comment, ts) VALUES (11, 1, 'User10', 'Great code!', '2023-01-01T12:45:00Z');
+
+
+INSERT INTO comments_video (id, id_video, author, comment, ts) VALUES (1, 1, 'User1', 'Great video!', '2023-01-01T14:00:00Z');
+INSERT INTO comments_video (id, id_video, author, comment, ts) VALUES (2, 2, 'User2', 'I love these recipes!', '2023-01-01T14:05:00Z');
+INSERT INTO comments_video (id, id_video, author, comment, ts) VALUES (3, 3, 'User3', 'Excellent workout routine!', '2023-01-01T14:10:00Z');
+INSERT INTO comments_video (id, id_video, author, comment, ts) VALUES (4, 4, 'User4', 'Amazing travel vlog!', '2023-01-01T14:15:00Z');
+INSERT INTO comments_video (id, id_video, author, comment, ts) VALUES (5, 5, 'User5', 'Helpful guitar tutorial!', '2023-01-01T14:20:00Z');
+INSERT INTO comments_video (id, id_video, author, comment, ts) VALUES (6, 6, 'User6', 'Love these DIY ideas!', '2023-01-01T14:25:00Z');
+INSERT INTO comments_video (id, id_video, author, comment, ts) VALUES (7, 7, 'User7', 'Informative tech review!', '2023-01-01T14:30:00Z');
+INSERT INTO comments_video (id, id_video, author, comment, ts) VALUES (8, 8, 'User8', 'Relaxing yoga session!', '2023-01-01T14:35:00Z');
+INSERT INTO comments_video (id, id_video, author, comment, ts) VALUES (9, 9, 'User9', 'Thanks for the photography tips!', '2023-01-01T14:40:00Z');
+INSERT INTO comments_video (id, id_video, author, comment, ts) VALUES (10, 10, 'User10', 'Great book recommendations!', '2023-01-01T14:45:00Z');
+INSERT INTO comments_video (id, id_video, author, comment, ts) VALUES (11, 1, 'User10', 'Great code!', '2023-01-01T12:45:00Z');
+
+
+
+INSERT INTO followers (id_video, users) VALUES (1, {'User1', 'User2', 'User3'});
+INSERT INTO followers (id_video, users) VALUES (2, {'User4', 'User5', 'User6'});
+INSERT INTO followers (id_video, users) VALUES (3, {'User7', 'User8', 'User9'});
+INSERT INTO followers (id_video, users) VALUES (4, {'User10', 'User1', 'User2'});
+INSERT INTO followers (id_video, users) VALUES (5, {'User3', 'User4', 'User5'});
+INSERT INTO followers (id_video, users) VALUES (6, {'User6', 'User7', 'User8'});
+INSERT INTO followers (id_video, users) VALUES (7, {'User9', 'User10', 'User1'});
+INSERT INTO followers (id_video, users) VALUES (8, {'User2', 'User3', 'User4'});
+INSERT INTO followers (id_video, users) VALUES (9, {'User5', 'User6', 'User7'});
+INSERT INTO followers (id_video, users) VALUES (10, {'User8', 'User9', 'User10'});
+
+
+
+INSERT INTO events (id_video, username, type, ts, instant) VALUES (1, 'User1', 'like', '2023-01-01T15:00:00Z', '2023-01-01T15:05:00Z');
+INSERT INTO events (id_video, username, type, ts, instant) VALUES (2, 'User2', 'comment', '2023-01-01T15:10:00Z', '2023-01-01T15:15:00Z');
+INSERT INTO events (id_video, username, type, ts, instant) VALUES (3, 'User3', 'view', '2023-01-01T15:20:00Z', '2023-01-01T15:25:00Z');
+INSERT INTO events (id_video, username, type, ts, instant) VALUES (4, 'User4', 'like', '2023-01-01T15:30:00Z', '2023-01-01T15:35:00Z');
+INSERT INTO events (id_video, username, type, ts, instant) VALUES (5, 'User5', 'comment', '2023-01-01T15:40:00Z', '2023-01-01T15:45:00Z');
+INSERT INTO events (id_video, username, type, ts, instant) VALUES (6, 'User6', 'view', '2023-01-01T15:50:00Z', '2023-01-01T15:55:00Z');
+INSERT INTO events (id_video, username, type, ts, instant) VALUES (7, 'User7', 'like', '2023-01-01T16:00:00Z', '2023-01-01T16:05:00Z');
+INSERT INTO events (id_video, username, type, ts, instant) VALUES (8, 'User8', 'comment', '2023-01-01T16:10:00Z', '2023-01-01T16:15:00Z');
+INSERT INTO events (id_video, username, type, ts, instant) VALUES (9, 'User9', 'view', '2023-01-01T16:20:00Z', '2023-01-01T16:25:00Z');
+INSERT INTO events (id_video, username, type, ts, instant) VALUES (10, 'User10', 'like', '2023-01-01T16:30:00Z', '2023-01-01T16:35:00Z');
+
+
+
+INSERT INTO ratings (id_video, rate) VALUES (1, 5);
+INSERT INTO ratings (id_video, rate) VALUES (2, 4);
+INSERT INTO ratings (id_video, rate) VALUES (3, 5);
+INSERT INTO ratings (id_video, rate) VALUES (4, 3);
+INSERT INTO ratings (id_video, rate) VALUES (5, 4);
+INSERT INTO ratings (id_video, rate) VALUES (6, 5);
+INSERT INTO ratings (id_video, rate) VALUES (7, 3);
+INSERT INTO ratings (id_video, rate) VALUES (8, 4);
+INSERT INTO ratings (id_video, rate) VALUES (9, 5);
+INSERT INTO ratings (id_video, rate) VALUES (10, 4);
+INSERT INTO ratings (id_video, rate) VALUES (1, 4);
+
+

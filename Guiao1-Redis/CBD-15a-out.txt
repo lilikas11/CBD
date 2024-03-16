@@ -1,0 +1,15 @@
+Insira o nome de utilizador:
+tiago
+Insira o produto:
+batatas
+Pedido atendido para o produto: batatas
+Insira o produto:
+limoes
+Pedido atendido para o produto: limoes
+Insira o produto:
+laranjas
+Pedido atendido para o produto: laranjas
+Insira o produto:
+morangos
+Erro: Limite de pedidos de produtos excedido
+Limite de produtos atingido ou produto já solicitado anteriormente. Não é possível pedir mais produtos neste momento.

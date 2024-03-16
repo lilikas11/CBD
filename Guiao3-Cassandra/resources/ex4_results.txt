@@ -1,0 +1,162 @@
+cqlsh:ex4> // Queries.........
+cqlsh:ex4> // 1. Obter o nome e a idade de todos os jogadores
+cqlsh:ex4> SELECT name, age FROM Players;
+
+ name    | age
+---------+-----
+  olivia |  31
+     bob |  30
+    kate |  21
+     mia |  33
+    liam |  26
+     ivy |  24
+   henry |  32
+   frank |  19
+     eva |  35
+ charlie |  22
+   alice |  25
+    john |  20
+    jack |  29
+   grace |  27
+    noah |  20
+
+(15 rows)
+cqlsh:ex4> 
+cqlsh:ex4> // 2. Obter o nome e o preço de todos os items
+cqlsh:ex4> SELECT item_name, price FROM Itens;
+
+ item_name                 | price
+---------------------------+-------
+          escudo encantado |    50
+           livro de magias |    25
+          flechas de prata |    22
+             anel de poder |    50
+       cajado da sabedoria |    65
+          elmo de diamante |    70
+             elmo de ferro |    75
+   pergaminho de teleporte |    30
+             espada magica |   100
+           lanterna magica |    12
+             pocao de cura |    60
+             pocao de cura |    10
+         martelo de guerra |    55
+             cajado arcano |    55
+       pocao de velocidade |    18
+      espada do crepusculo |    60
+           arco de cristal |    45
+          amuleto da sorte |    20
+   pocao de invisibilidade |    15
+      varinha das estrelas |    32
+            varinha magica |    35
+       flechas flamejantes |    25
+ pergaminho de restauracao |    15
+            capa invisivel |    35
+             pocao de cura |    40
+             pocao de cura |    28
+         armadura de couro |    20
+             lanca de gelo |    45
+               arco elfico |    40
+
+(29 rows)
+cqlsh:ex4> 
+cqlsh:ex4> // 3. Obter o nome e o preço de todos os items do jogador alice
+cqlsh:ex4> SELECT item_name, price FROM Itens WHERE player_name = 'alice';
+
+ item_name       | price
+-----------------+-------
+   espada magica |   100
+ lanterna magica |    12
+
+(2 rows)
+cqlsh:ex4> 
+cqlsh:ex4> // 4. Obter o nome do jogador e o preço de todos as pocoes de cura
+cqlsh:ex4> SELECT player_name, price FROM Itens WHERE item_name = 'pocao de cura';
+
+ player_name | price
+-------------+-------
+       henry |    60
+         bob |    10
+        jane |    40
+       grace |    28
+
+(4 rows)
+cqlsh:ex4> 
+cqlsh:ex4> // 5. Obter os eventos que o jogador alice tem
+cqlsh:ex4> SELECT events FROM Players_Events WHERE player_name = 'alice';
+
+ events
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+ {'2023-11-26 12:00:00.000000+0000': 1, '2023-11-26 13:00:00.000000+0000': 2, '2023-11-26 14:00:00.000000+0000': 3, '2023-11-27 00:32:58.417000+0000': 16}
+
+(1 rows)
+cqlsh:ex4> 
+cqlsh:ex4> // 6. Obter todos os jogadores com 20 anos
+cqlsh:ex4> SELECT * FROM Players WHERE age = 20;
+
+ name | age
+------+-----
+ john |  20
+ noah |  20
+
+(2 rows)
+cqlsh:ex4> 
+cqlsh:ex4> // 7. Obter todos os items da categoria arma
+cqlsh:ex4> SELECT * FROM Itens WHERE category = 'arma';
+
+ id | ts                              | category | item_name            | player_name | price
+----+---------------------------------+----------+----------------------+-------------+-------
+ 16 | 2023-11-26 19:45:00.000000+0000 |     arma |  cajado da sabedoria |        john |    65
+  1 | 2023-11-26 18:30:00.000000+0000 |     arma |        espada magica |       alice |   100
+  8 | 2023-11-26 19:05:00.000000+0000 |     arma |        pocao de cura |       henry |    60
+ 18 | 2023-11-26 19:55:00.000000+0000 |     arma |    martelo de guerra |         bob |    55
+ 15 | 2023-11-26 19:40:00.000000+0000 |     arma |        cajado arcano |      olivia |    55
+ 27 | 2023-11-26 20:40:00.000000+0000 |     arma | espada do crepusculo |        jack |    60
+ 20 | 2023-11-26 20:05:00.000000+0000 |     arma |      arco de cristal |     charlie |    45
+  9 | 2023-11-26 19:10:00.000000+0000 |     arma |       varinha magica |         ivy |    35
+ 12 | 2023-11-26 19:25:00.000000+0000 |     arma |        lanca de gelo |        liam |    45
+  3 | 2023-11-26 18:40:00.000000+0000 |     arma |          arco elfico |     charlie |    40
+
+(10 rows)
+cqlsh:ex4> 
+cqlsh:ex4> // 8. Obter todos os blocos do tipo pedra
+cqlsh:ex4> SELECT * FROM Blocks WHERE bloco_type = 'pedra';
+
+ id | bloco_name | bloco_type | hardness
+----+------------+------------+----------
+  1 |     bloco1 |      pedra |       10
+
+(1 rows)
+cqlsh:ex4> 
+cqlsh:ex4> // 9. Obter os mundos que o jogador alice tem
+cqlsh:ex4> SELECT * FROM Words WHERE players CONTAINS 'alice';
+
+ id | ts                              | blocks_ids       | players                               | word_description  | word_name
+----+---------------------------------+------------------+---------------------------------------+-------------------+-----------
+  1 | 2023-11-26 12:00:00.000000+0000 |        [1, 2, 3] |                      {'alice', 'bob'} |  exciting journey | adventure
+  2 | 2023-11-26 12:30:00.000000+0000 | [6, 7, 8, 9, 10] | {'alice', 'charlie', 'david', 'john'} | intriguing enigma |   mystery
+
+(2 rows)
+cqlsh:ex4> 
+cqlsh:ex4> // 10. Obter os mundos que tem o bloco 1
+cqlsh:ex4> SELECT * FROM Words WHERE blocks_ids CONTAINS 1;
+
+ id | ts                              | blocks_ids         | players             | word_description     | word_name
+----+---------------------------------+--------------------+---------------------+----------------------+-----------
+ 10 | 2023-11-26 16:30:00.000000+0000 | [11, 13, 15, 1, 3] | {'isaac', 'isabel'} | emotional narratives |     drama
+ 13 | 2023-11-26 18:00:00.000000+0000 |    [1, 3, 5, 7, 9] |  {'nathan', 'nina'} | wild west adventures |   western
+  1 | 2023-11-26 12:00:00.000000+0000 |          [1, 2, 3] |    {'alice', 'bob'} |     exciting journey | adventure
+  8 | 2023-11-26 15:30:00.000000+0000 |    [1, 3, 5, 7, 9] |  {'john', 'olivia'} |     terrifying tales |    horror
+  4 | 2023-11-26 13:30:00.000000+0000 |    [1, 3, 5, 7, 9] |  {'grace', 'henry'} |     thrilling scenes |    action
+
+(5 rows)
+cqlsh:ex4> 
+cqlsh:ex4> // 11. Obter todos os players que participaram no evento de natal
+cqlsh:ex4> SELECT player_name FROM Players_Events WHERE events CONTAINS 1;
+
+ player_name
+-------------
+        kara
+       frank
+       alice
+
+(3 rows)

@@ -1,0 +1,13 @@
+set maria 0000
+set joao 899
+set joana 20909
+get maria
+flushdb
+set maria antonia
+get maria
+set joao 89098
+set antonio 88229
+exists joao
+incr joao
+get joao
+

@@ -1,0 +1,122 @@
+Prob. Need commands:
+    ALTER           CREATE_TABLE_OPTIONS       SELECT
+    ALTER_ADD       CREATE_TABLE_TYPES         SELECT_COLUMNFAMILY
+    ALTER_ALTER     CREATE_USER                SELECT_EXPR
+    ALTER_DROP      DELETE                     SELECT_LIMIT
+    ALTER_RENAME    DELETE_COLUMNS             SELECT_TABLE 
+
+
+
+
+cqlsh> HELP
+
+Documented shell commands:
+===========================
+CAPTURE  CLS          COPY  DESCRIBE  EXPAND  LOGIN   SERIAL  SOURCE   UNICODE
+CLEAR    CONSISTENCY  DESC  EXIT      HELP    PAGING  SHOW    TRACING
+
+CQL help topics:
+================
+AGGREGATES               CREATE_KEYSPACE           DROP_TRIGGER      TEXT     
+ALTER_KEYSPACE           CREATE_MATERIALIZED_VIEW  DROP_TYPE         TIME     
+ALTER_MATERIALIZED_VIEW  CREATE_ROLE               DROP_USER         TIMESTAMP
+ALTER_TABLE              CREATE_TABLE              FUNCTIONS         TRUNCATE 
+ALTER_TYPE               CREATE_TRIGGER            GRANT             TYPES    
+ALTER_USER               CREATE_TYPE               INSERT            UPDATE   
+APPLY                    CREATE_USER               INSERT_JSON       USE      
+ASCII                    DATE                      INT               UUID     
+BATCH                    DELETE                    JSON            
+BEGIN                    DROP_AGGREGATE            KEYWORDS        
+BLOB                     DROP_COLUMNFAMILY         LIST_PERMISSIONS
+BOOLEAN                  DROP_FUNCTION             LIST_ROLES      
+COUNTER                  DROP_INDEX                LIST_USERS      
+CREATE_AGGREGATE         DROP_KEYSPACE             PERMISSIONS     
+CREATE_COLUMNFAMILY      DROP_MATERIALIZED_VIEW    REVOKE          
+CREATE_FUNCTION          DROP_ROLE                 SELECT          
+CREATE_INDEX             DROP_TABLE                SELECT_JSON     
+
+
+
+
+Start cassandra:
+https://cassandra.apache.org/_/quickstart.html
+$ docker run --rm --network cassandra -v "$(pwd)/data.cql:/scripts/data.cql" -e CQLSH_HOST=cassandra -e CQLSH_PORT=9042 -e CQLVERSION=3.4.6 nuvo/docker-cqlsh
+$ docker run --rm -it --network cassandra nuvo/docker-cqlsh cqlsh cassandra 9042 --cqlversion='3.4.6'
+
+
+
+
+Some examples:
+
+
+-> Create a keyspace
+cqlsh> CREATE KEYSPACE IF NOT EXISTS minha_keyspace
+   ... WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+
+
+
+
+-> See details about the keyspace
+cqlsh> DESCRIBE KEYSPACE minha_keyspace;
+
+CREATE KEYSPACE minha_keyspace WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}  AND durable_writes = true;
+
+
+
+
+-> Create tables:
+cqlsh> CREATE TABLE IF NOT EXISTS minha_keyspace.minha_tabela (
+   ...     id UUID PRIMARY KEY,
+   ...     nome TEXT,
+   ...     idade INT
+   ... );
+
+
+
+
+
+-> Details about the table
+cqlsh> DESCRIBE TABLE minha_keyspace.minha_tabela;
+
+CREATE TABLE minha_keyspace.minha_tabela (
+    id uuid PRIMARY KEY,
+    idade int,
+    nome text
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '16', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND speculative_retry = '99p';
+
+
+
+-> Insert values
+cqlsh> INSERT INTO minha_keyspace.minha_tabela (id, nome, idade) VALUES (uuid(), 'Joao', 25);
+
+
+-> SELECT
+cqlsh> SELECT id, nome, idade FROM minha_keyspace.minha_tabela WHERE nome = 'Joao' ALLOW FILTERING;
+
+ id                                   | nome | idade
+--------------------------------------+------+-------
+ 83c83546-b953-431f-b532-c9ecc684c0c4 | Joao |    25
+
+(1 rows)
+
+
+-> UPDATE
+cqlsh> UPDATE minha_keyspace.minha_tabela SET idade = 26 WHERE id = 83c83546-b953-431f-b532-c9ecc684c0c4
+   ... ;
+
+
+
+-> DELETE
+cqlsh> DELETE FROM minha_keyspace.minha_tabela WHERE id = 83c83546-b953-431f-b532-c9ecc684c0c4
+   ... ;

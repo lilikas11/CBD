@@ -1,0 +1,183 @@
+
+cqlsh:ex2> SELECT * FROM videos WHERE author = 'John';
+
+ author | ts                              | description                     | id | name                 | tags
+--------+---------------------------------+---------------------------------+----+----------------------+------------------------------
+   John | 2023-01-01 13:00:00.000000+0000 | Learn the basics of programming |  1 | Intro to Programming | {'education', 'programming'}
+
+(1 rows)
+cqlsh:ex2> 
+cqlsh:ex2> // 8. Permitir a pesquisa de comentarios por utilizador, ordenado inversamente pela data
+cqlsh:ex2> SELECT * FROM comments_user WHERE author = 'User1' ORDER BY ts DESC;
+
+ author | ts                              | comment      | id | id_video
+--------+---------------------------------+--------------+----+----------
+  User1 | 2023-01-01 14:00:00.000000+0000 | Great video! |  1 |        1
+
+(1 rows)
+cqlsh:ex2> 
+cqlsh:ex2> 
+cqlsh:ex2> // 9. Permitir a pesquisa de comentarios por videos, ordenado inversamente pela data;
+cqlsh:ex2> SELECT * FROM comments_video WHERE id_video = 1 ORDER BY ts DESC;
+
+ id_video | ts                              | author | comment      | id
+----------+---------------------------------+--------+--------------+----
+        1 | 2023-01-01 14:00:00.000000+0000 |  User1 | Great video! |  1
+        1 | 2023-01-01 12:45:00.000000+0000 | User10 |  Great code! | 11
+
+(2 rows)
+cqlsh:ex2> 
+cqlsh:ex2> // 10. Permitir a pesquisa do rating medio de um video e quantas vezes foi votado;
+cqlsh:ex2> SELECT AVG(rate) AS avg_rating, COUNT(*) AS vote_count FROM ratings WHERE id_video = 1;
+
+ avg_rating | vote_count
+------------+------------
+          4 |          2
+
+(1 rows)
+cqlsh:ex2> 
+cqlsh:ex2> 
+cqlsh:ex2> // 1. Os ultimos 3 comentarios introduzidos para um video;
+cqlsh:ex2> SELECT * FROM comments_video WHERE id_video = 1 LIMIT 3 ALLOW FILTERING;
+
+ id_video | ts                              | author | comment      | id
+----------+---------------------------------+--------+--------------+----
+        1 | 2023-01-01 12:45:00.000000+0000 | User10 |  Great code! | 11
+        1 | 2023-01-01 14:00:00.000000+0000 |  User1 | Great video! |  1
+
+(2 rows)
+cqlsh:ex2> 
+cqlsh:ex2> // 2. Lista das tags de determinado video;
+cqlsh:ex2> SELECT tags FROM videos WHERE id = 1;
+
+ tags
+------------------------------
+ {'education', 'programming'}
+
+(1 rows)
+cqlsh:ex2> 
+cqlsh:ex2> 
+cqlsh:ex2> // 3. Todos os videos com a tag Aveiro;
+cqlsh:ex2> SELECT * FROM videos WHERE tags CONTAINS 'Aveiro';
+
+ author | ts                              | description             | id | name            | tags
+--------+---------------------------------+-------------------------+----+-----------------+-----------------------------
+    Eva | 2017-08-03 13:45:00.000000+0000 | More fun crafts at home | 11 | More DIY Crafts | {'Aveiro', 'crafts', 'diy'}
+
+(1 rows)
+cqlsh:ex2> 
+cqlsh:ex2> 
+cqlsh:ex2> // 4. Os ultimos 5 eventos de determinado video realizados por um utilizador;
+cqlsh:ex2> SELECT * FROM events WHERE username = 'User1' AND id_video = 1 LIMIT 5;
+
+ username | ts                              | id_video | instant                         | type
+----------+---------------------------------+----------+---------------------------------+------
+    User1 | 2023-01-01 15:00:00.000000+0000 |        1 | 2023-01-01 15:05:00.000000+0000 | like
+
+(1 rows)
+cqlsh:ex2> 
+cqlsh:ex2> 
+cqlsh:ex2> // 5. Videos partilhados por determinado utilizador (maria1987, por exemplo) num determinado periodo de tempo (Agosto de 2017, por exemplo);
+cqlsh:ex2> SELECT * FROM videos WHERE author = 'Eva' AND ts >= '2017-08-01' AND ts <= '2017-08-31';
+
+ author | ts                              | description             | id | name            | tags
+--------+---------------------------------+-------------------------+----+-----------------+-----------------------------
+    Eva | 2017-08-03 13:45:00.000000+0000 | More fun crafts at home | 11 | More DIY Crafts | {'Aveiro', 'crafts', 'diy'}
+
+(1 rows)
+cqlsh:ex2> 
+cqlsh:ex2> 
+cqlsh:ex2> // 6. Os ultimos 10 videos, ordenado inversamente pela data da partilhada;
+cqlsh:ex2> // Não é possivel ordenar inversamente pela data da partilha, pois a chave primaria é o id do video. Mas os ultimos 10 videos seria assim:
+cqlsh:ex2> SELECT * FROM videos LIMIT 10;
+
+ author  | ts                              | description                     | id | name                 | tags
+---------+---------------------------------+---------------------------------+----+----------------------+------------------------------
+   Grace | 2023-01-01 13:35:00.000000+0000 |  Relax with beginner yoga poses |  8 |   Yoga for Beginners |         {'wellness', 'yoga'}
+    John | 2023-01-01 13:00:00.000000+0000 | Learn the basics of programming |  1 | Intro to Programming | {'education', 'programming'}
+   Frank | 2023-01-01 13:30:00.000000+0000 |            Latest in technology |  7 |         Tech Reviews |          {'reviews', 'tech'}
+  Isabel | 2023-01-01 13:45:00.000000+0000 |    Discover great books to read | 10 | Book Recommendations | {'books', 'recommendations'}
+    Jane | 2023-01-01 13:05:00.000000+0000 |  Beginner-friendly cooking tips |  2 |          Cooking 101 |          {'cooking', 'food'}
+     Bob | 2023-01-01 13:10:00.000000+0000 |     Stay fit with home workouts |  3 |      Fitness at Home |        {'fitness', 'health'}
+   Alice | 2023-01-01 13:15:00.000000+0000 |    Explore amazing destinations |  4 |          Travel Vlog |      {'adventure', 'travel'}
+     Eva | 2017-08-03 13:45:00.000000+0000 |         More fun crafts at home | 11 |      More DIY Crafts |  {'Aveiro', 'crafts', 'diy'}
+     Eva | 2023-01-01 13:25:00.000000+0000 |       Create fun crafts at home |  6 |           DIY Crafts |            {'crafts', 'diy'}
+ Charlie | 2023-01-01 13:20:00.000000+0000 |        Learn to play the guitar |  5 |      Guitar Tutorial |        {'music', 'tutorial'}
+
+(10 rows)
+cqlsh:ex2> 
+cqlsh:ex2> // 7. Todos os seguidores (followers) de determinado video;
+cqlsh:ex2> SELECT users FROM followers WHERE id_video = 1;
+
+ users
+-----------------------------
+ {'User1', 'User2', 'User3'}
+
+(1 rows)
+cqlsh:ex2> 
+cqlsh:ex2> // 8. Todos os comentarios (dos videos) que determinado utilizador esta a seguir (following);
+cqlsh:ex2> // Não é possivel fazer esta query em cassandra, pois não é possivel fazer joins entre tabelas.
+cqlsh:ex2> // Esta seria uma operação muito complexa, pois teriamos de percorrer a tabela de followers e para cada utilizador
+cqlsh:ex2> 
+cqlsh:ex2> 
+cqlsh:ex2> // 9. Os 5 videos com maior rating;
+cqlsh:ex2> // Não é possivel porque não conseguimos ordenar pelo rate, já que a chave primaria é id_video, e este tinha de ser mencionado.
+cqlsh:ex2> SELECT * FROM ratings LIMIT 5;
+
+ id_video | rate
+----------+------
+        5 |    4
+       10 |    4
+        1 |    4
+        1 |    5
+        8 |    4
+
+(5 rows)
+cqlsh:ex2> 
+cqlsh:ex2> 
+cqlsh:ex2> // 10. Uma query que retorne todos os videos e que mostre claramente a forma pela qual estao ordenados;
+cqlsh:ex2> // Estão ordenados pela ordem de inserção
+cqlsh:ex2> SELECT * FROM videos;
+
+ author  | ts                              | description                     | id | name                 | tags
+---------+---------------------------------+---------------------------------+----+----------------------+------------------------------
+   Grace | 2023-01-01 13:35:00.000000+0000 |  Relax with beginner yoga poses |  8 |   Yoga for Beginners |         {'wellness', 'yoga'}
+    John | 2023-01-01 13:00:00.000000+0000 | Learn the basics of programming |  1 | Intro to Programming | {'education', 'programming'}
+   Frank | 2023-01-01 13:30:00.000000+0000 |            Latest in technology |  7 |         Tech Reviews |          {'reviews', 'tech'}
+  Isabel | 2023-01-01 13:45:00.000000+0000 |    Discover great books to read | 10 | Book Recommendations | {'books', 'recommendations'}
+    Jane | 2023-01-01 13:05:00.000000+0000 |  Beginner-friendly cooking tips |  2 |          Cooking 101 |          {'cooking', 'food'}
+     Bob | 2023-01-01 13:10:00.000000+0000 |     Stay fit with home workouts |  3 |      Fitness at Home |        {'fitness', 'health'}
+   Alice | 2023-01-01 13:15:00.000000+0000 |    Explore amazing destinations |  4 |          Travel Vlog |      {'adventure', 'travel'}
+     Eva | 2017-08-03 13:45:00.000000+0000 |         More fun crafts at home | 11 |      More DIY Crafts |  {'Aveiro', 'crafts', 'diy'}
+     Eva | 2023-01-01 13:25:00.000000+0000 |       Create fun crafts at home |  6 |           DIY Crafts |            {'crafts', 'diy'}
+ Charlie | 2023-01-01 13:20:00.000000+0000 |        Learn to play the guitar |  5 |      Guitar Tutorial |        {'music', 'tutorial'}
+   Henry | 2023-01-01 13:40:00.000000+0000 |         Capture stunning photos |  9 |     Photography Tips |      {'photography', 'tips'}
+
+(11 rows)
+cqlsh:ex2> 
+cqlsh:ex2> 
+cqlsh:ex2> // 11. Lista com as Tags existentes e o numero de videos catalogados com cada uma delas;
+cqlsh:ex2> // seria necessário criar uma tabela com as tags como primary key
+cqlsh:ex2> 
+cqlsh:ex2> // 12.
+cqlsh:ex2> // Todos os eventos de um utilizador, ordenados inversamente pela data;
+cqlsh:ex2> SELECT * FROM events WHERE username = 'User1' ORDER BY ts DESC;
+
+ username | ts                              | id_video | instant                         | type
+----------+---------------------------------+----------+---------------------------------+------
+    User1 | 2023-01-01 15:00:00.000000+0000 |        1 | 2023-01-01 15:05:00.000000+0000 | like
+
+(1 rows)
+cqlsh:ex2> 
+cqlsh:ex2> // 13.
+cqlsh:ex2> // Número total de comentarios feitos por um utilizador;
+cqlsh:ex2> SELECT COUNT(*) FROM comments_user WHERE author = 'User1';
+
+ count
+-------
+     1
+
+(1 rows)
+cqlsh:ex2> 
+
+

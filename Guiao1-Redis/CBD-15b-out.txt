@@ -1,0 +1,13 @@
+Insira o nome de utilizador:
+tiago
+Insira o produto:
+batatas
+Insira a quantidade:
+morangos
+Erro: Quantidade inválida. Por favor, insira um número inteiro.
+Insira o produto:
+batatas
+Insira a quantidade:
+10
+Erro: Limite de pedidos de produtos excedido
+Não é possível pedir mais produtos neste momento.

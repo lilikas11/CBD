@@ -1,0 +1,2 @@
+Programas baseados em Redis, têm maior memória, velocidade de leitura e escritas rápidas. O mongoDB é orientado a documentos, preferivel para base de dados persisistentes e para consulta de dados estruturados. Já o Redis é melhor com operações simples e pouca complexidade de dados.
+O mongoDB é melhor para consultas de dados já guardados e para manter a integridade dos dados, já o redis é melhor para sessões de usuário em tempo real onde existe uma grande volatibilidade dos dados.

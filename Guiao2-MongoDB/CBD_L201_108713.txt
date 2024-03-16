@@ -1,0 +1,15 @@
+# CBD – Lab201 – Liliana
+
+test> use testdb
+switched to db testdb
+testdb> db
+testdb
+testdb> show dbs
+admin    40.00 KiB
+cbd     624.00 KiB
+config  108.00 KiB
+local    72.00 KiB
+testdb> db.createCollection("restaurants")
+{ ok: 1 }
+testdb> db.restaurants.drop()
+true

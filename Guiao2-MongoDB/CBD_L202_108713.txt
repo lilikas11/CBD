@@ -1,0 +1,100 @@
+NMEC: 108713
+
+
+// ex1
+db.restaurants.find()
+
+// ex2
+db.restaurants.find({}, {"restaurant_id":1, "nome":1, "localidade":1, "gastronomia":1})
+
+//ex3
+db.restaurants.find({}, {"restaurant_id":1, "nome":1, "localidade":1, "zipcode":1,  "_id":0})
+
+//ex4
+db.restaurants.find({"localidade": "Bronx"}).count()
+
+//ex5
+db.restaurants.find({"localidade": "Bronx"}).sort({"nome":1}).limit(15)
+
+//ex6
+db.restaurants.find({"grades.score": {"$gt":85}});
+
+//ex7
+db.restaurants.find({"grades.score": {"$gte":80, "$lte": 100}});
+
+//ex8
+db.restaurants.find({"address.coord.0": {$lt : -95.7}})
+
+//ex9
+db.restaurants.find({"gastronomia": {$ne: "American"}, "grades.score": {$gt : 70}, "address.coord.0":  {$lt: -65}})
+
+//ex10
+db.restaurants.find({"nome": /^Wil/}, {"restaurant_id": 1 , "nome": 1, "localidade": 1, "gastronomia": 1 })
+
+//ex11
+db.restaurants.find({"gastronomia": {$in: ["American", "Chinese"]}}, { "nome": 1, "localidade": 1, "gastronomia": 1 })
+
+//ex12
+db.restaurants.find({"localidade": {$in: ["Staten Island", "Queens", "Brooklyn"]}}, { "restaurant_id": 1, "nome":1, "localidade": 1, "gastronomia": 1 })
+
+//ex13
+db.restaurants.find({"grades.score": {$lte: 3}}, { "grades.score": 1, "nome":1, "localidade": 1, "gastronomia": 1 })
+
+//ex14
+db.restaurants.find({"grades.": {"$elemMatch": {grade:"A", score: 10, date: ISODate("2014-08-11T00:00:00Z")}}}, { "nome":1, "grades.score":1})
+
+//ex15
+db.restaurants.find({"grades.1.grade":"A", "grades.1.date": ISODate("2014-08-11T00:00:00Z")}, { "nome":1, "grades.score":1, "restaurant_id":1})
+
+//ex16
+db.restaurants.find({"address.coord.1": {$gt: 42 , $lte: 52} }, { "nome":1, "address":1, "restaurant_id":1, "adress.coord": 1})
+
+//ex17
+db.restaurants.find({}, { "nome":1, "gastronomia":1, "localidade":1}).sort({"gastronomia": 1, "localidade":1})
+
+//ex18
+db.restaurants.find({"localidade": "Brooklyn", "gastronomia": {$ne: "American"}, "grades.grade": "A" }, { "nome":1, "gastronomia":1, "localidade":1}).sort({"gastronomia": -1})
+
+//ex19
+db.restaurants.aggregate([ {$group: {"_id": "$numGrades", "count": {$sum: 1}}}])
+
+//ex20
+db.restaurants.aggregate([ {$addFields: {numGrades: {$size: "$grades"}}}, {$sort: {"numGrades": -1}}, {$limit: 3}, {$project: {_id:0, "nome": 1, "numGrades":1}}])
+
+//ex21
+db.restaurants.aggregate([ {$unwind: "$grades"}, {$group: {_id: { $dayOfWeek: "$grades.date"}, totalGrades: {$sum:1}}}, {$project : {_id:0, dayOfWeek: "$_id", totalGrades:1}}])
+
+//ex22
+db.restaurants.aggregate([ {$group: {"_id":"$localidade", "count": {$sum: 1}}}])
+
+//ex23
+db.restaurants.aggregate({$addFields: {SumScore: {$sum: "$grades.score"}}}, {$match: {"gastronomia": "Portuguese", SumScore: {$gt: 50}, "address.coord.0": {$lt: -60}}})
+
+//ex24
+db.restaurants.aggregate({$match: {"address.rua": "Fifth Avenue"}}, {$group: {"_id": "$gatronomia", "count": {$sum:1}}})
+
+//ex25
+db.restaurants.aggregate([{$addFields: {avgScore: {$avg: "$grades.score" }, numGrades: {$size: "$grades"}}}, {$match: {avgScore: {$gt: 30}, "grades.date": {$gte: ISODate("2014-01-30T00:00:00Z")}}}, {$project: {"nome": 1, avgScore: "$avgScore", numGrades: "$numGrades"}}])
+
+//ex26
+// Latitude e longitude do restaurante Morris Park Bake Shop
+db.restaurants.findOne({ "nome": "Morris Park Bake Shop" }, {"address.coord": 1, "_id":0 })
+
+//ex27
+// Quantidade de grades "A" atribuidas
+db.restaurants.aggregate([{ $unwind: "$grades" },{ $match: { "grades.grade": "A" } },{ $group: { _id: null, totalA: { $sum: 1 } } },{ $project: { _id: 0, totalA: 1 } }])
+
+//ex28
+// Score médio de cada um dos restaurantes com as 15 piores avaliações
+db.restaurants.aggregate([{ $unwind: "$grades" },{ $sort: { "grades.score": 1 } },{ $group: { _id: "$_id", nome: { $first: "$nome" }, avgScore: { $avg: "$grades.score" } } },{ $sort: { avgScore: 1 } },{ $limit: 15 },{ $project: { _id: 0, nome: 1, avgScore: 1 } }])
+
+//ex29
+// Média de todos os scores atribuidos
+db.restaurants.aggregate([{ $unwind: "$grades" },{ $group: { _id: null, avgScore: { $avg: "$grades.score" } } },{ $project: { _id: 0, avgScore: 1 } }])
+
+//ex30
+// Restaurantes dentro da média
+db.restaurants.aggregate([{ $unwind: "$grades" },{ $group: { _id: "$_id", nome: { $first: "$nome" }, avgScore: { $avg: "$grades.score" } } },{ $match: { avgScore: { $gte: 11, $lte: 12 } } },{ $project: { _id: 0, nome: 1, avgScore: 1 } }])
+
+
+

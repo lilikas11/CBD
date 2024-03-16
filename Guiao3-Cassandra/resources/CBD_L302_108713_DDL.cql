@@ -1,0 +1,71 @@
+CREATE KEYSPACE IF NOT EXISTS ex2 WITH replication = {'class': 'SimpleStrategy','replication_factor': 1};
+USE ex2;
+
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users(
+    username text primary key,
+    name text,
+    email text,
+    ts timestamp
+);
+
+DROP TABLE IF EXISTS videos;
+CREATE TABLE videos(
+    id int,
+    author text,
+    name text,
+    description text,
+    tags set<text>,
+    ts timestamp,
+    primary key (author, ts)
+) ;
+
+CREATE INDEX ON videos (id);
+CREATE INDEX ON videos (tags);
+
+DROP TABLE IF EXISTS comments_user;
+CREATE TABLE comments_user(
+    id int,
+    id_video int,
+    author text,
+    comment text,
+    ts timestamp,
+    primary key (author, ts)
+) ;
+
+DROP TABLE IF EXISTS comments_video;
+CREATE TABLE comments_video(
+    id int,
+    id_video int,
+    author text,
+    comment text,
+    ts timestamp,
+    primary key (id_video, ts)
+) ;
+
+
+DROP TABLE IF EXISTS followers;
+CREATE TABLE followers(
+    id_video int primary key,
+    users set<text>
+);
+
+DROP TABLE IF EXISTS events;
+CREATE TABLE events(
+    id_video int,
+    username text,
+    type text,
+    ts timestamp,
+    instant timestamp,
+    primary key(username, ts)
+);
+CREATE INDEX IF NOT EXISTS ON events (id_video);
+
+
+DROP TABLE IF EXISTS ratings;
+CREATE TABLE ratings(
+    id_video int,
+    rate int,
+    primary key((id_video), rate)
+);

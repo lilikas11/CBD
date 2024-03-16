@@ -1,0 +1,42 @@
+Digite o nome do utilizador:
+lili
+Digite o nome do produto:
+pc
+Digite a quantidade desejada:
+1
+Pedido registrado com sucesso!
+Deseja fazer outro pedido? (s/n)
+s
+Digite o nome do produto:
+mouse
+Digite a quantidade desejada:
+2
+Pedido registrado com sucesso!
+Deseja fazer outro pedido? (s/n)
+s
+Digite o nome do produto:
+keyboard
+Digite a quantidade desejada:
+1
+Pedido registrado com sucesso!
+Deseja fazer outro pedido? (s/n)
+s
+Digite o nome do produto:
+monitor
+Digite a quantidade desejada:
+1
+Pedido registrado com sucesso!
+Deseja fazer outro pedido? (s/n)
+s
+Digite o nome do produto:
+headset
+Digite a quantidade desejada:
+2
+Pedido registrado com sucesso!
+Deseja fazer outro pedido? (s/n)
+s
+Digite o nome do produto:
+mousepad
+Digite a quantidade desejada:
+6
+Erro: Limite total de unidades do produto mousepad excedido

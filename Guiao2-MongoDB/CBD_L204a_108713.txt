@@ -1,0 +1,30 @@
+Digite o nome do utilizador:
+lili
+Digite o nome do produto:
+pc
+Pedido registrado com sucesso!
+Deseja fazer outro pedido? (s/n)
+s
+Digite o nome do produto:
+mouse
+Pedido registrado com sucesso!
+Deseja fazer outro pedido? (s/n)
+s
+Digite o nome do produto:
+keyboard
+Pedido registrado com sucesso!
+Deseja fazer outro pedido? (s/n)
+s
+Digite o nome do produto:
+monitor
+Pedido registrado com sucesso!
+Deseja fazer outro pedido? (s/n)
+s
+Digite o nome do produto:
+headset
+Pedido registrado com sucesso!
+Deseja fazer outro pedido? (s/n)
+s
+Digite o nome do produto:
+mousepad
+Limite de pedidos excedeu
